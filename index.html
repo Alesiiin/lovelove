@@ -2,53 +2,113 @@
 <html>
 <head>
 <title>Para ti ❤️</title>
+
 <style>
 body{
     background:#ffe6f0;
     font-family: Arial;
     text-align:center;
     padding:50px;
+    transition: all 0.6s ease;
 }
 
-.card{
+/* MODO BONITO */
+body.bonito{
+    background: linear-gradient(135deg, #ffd6e8, #e6f0ff);
+    font-family: 'Trebuchet MS', sans-serif;
+}
+
+/* CONTENEDOR PRINCIPAL */
+.container{
+    max-width:600px;
+    margin:auto;
     background:white;
-    padding:20px;
-    margin:20px;
-    border-radius:15px;
-    box-shadow:0px 0px 10px rgba(0,0,0,0.2);
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.15);
 }
 
-button{
-    padding:10px 20px;
+/* BOTÓN */
+#btn{
+    padding:12px 24px;
     border:none;
-    border-radius:10px;
+    border-radius:14px;
     background:#ff4d88;
     color:white;
     font-size:16px;
     cursor:pointer;
+    position:relative;
+    transition: transform 0.4s ease, background 0.3s;
+}
+
+#btn:hover{
+    background:#ff2f75;
+}
+
+/* GATITOS */
+.gatitos{
+    display:none;
+    margin-top:20px;
+}
+
+body.bonito .gatitos{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.gatitos img{
+    width:120px;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+    transition: transform 0.3s;
+}
+
+.gatitos img:hover{
+    transform: scale(1.1);
 }
 </style>
 </head>
 
 <body>
 
-<h1>Hola ❤️</h1>
-<p>Hice esto porque me gusta hacerte sonreír</p>
+<div class="container">
+    <h1>Hola ❤️</h1>
+    <p>Hice esto porque me gusta hacerte sonreír</p>
 
-<button onclick="mostrar()">Presiona aquí</button>
+    <button id="btn" onclick="accion()">Presiona aquí</button>
 
-<div id="mensaje"></div>
+    <div class="gatitos">
+        <img src="https://placekitten.com/200/200">
+        <img src="https://placekitten.com/201/200">
+        <img src="https://placekitten.com/202/200">
+    </div>
+</div>
 
 <script>
-function mostrar(){
-document.getElementById("mensaje").innerHTML = `
-<div class="card">
-<h2>Lo que me gusta de ti</h2>
-<p>Tu forma de ser agradable</p>
-<p>Tu humor tan malo que me hace reír</p>
-<p>Cómo cuidas a tu hermana</p>
-</div>
-`;
+let contador = 0;
+let primerClick = true;
+
+function accion(){
+    const btn = document.getElementById("btn");
+
+    // PRIMER CLICK → modo bonito + gatitos
+    if(primerClick){
+        document.body.classList.add("bonito");
+        btn.innerText = "¿Segura que quieres saber?";
+        primerClick = false;
+        return;
+    }
+
+    // MOVIMIENTO ALEATORIO (3 veces)
+    if(contador < 3){
+        const x = Math.random() * 200 - 100;
+        const y = Math.random() * 150 - 75;
+
+        btn.style.transform = `translate(${x}px, ${y}px)`;
+        contador++;
+    }
 }
 </script>
 
